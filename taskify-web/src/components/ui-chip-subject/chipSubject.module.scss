@@ -1,0 +1,41 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+.chip {
+  display: inline-flex;
+  padding: 4px 6px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  border-radius: 4px;
+  width: 42px;
+  height: 14px;
+  font-family: Pretendard;
+
+  &[data-label='프로젝트'] {
+    background: #f9eee3;
+    color: #d58d49;
+  }
+
+  &[data-label='일반'] {
+    background: #e7f7db;
+    color: #86d549;
+  }
+
+  &[data-label='백엔드'] {
+    background: #f7dbf0;
+    color: #d549b6;
+  }
+
+  &[data-label='상'] {
+    background: #dbe6f7;
+    color: #4981d5;
+  }
+  @media (max-width: 600px) {
+    font-size: 10px;
+  }
+}
