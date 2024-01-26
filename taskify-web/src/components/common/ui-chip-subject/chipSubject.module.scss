@@ -2,19 +2,18 @@
 
 .chip {
   display: inline-flex;
-  padding: 4px 6px;
+  padding: 0.2857rem 0.4286rem;
   justify-content: center;
   align-items: center;
   text-align: center;
   font-family: Pretendard;
-  font-size: 12px;
+  font-size: 0.8571rem;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  border-radius: 4px;
-  width: 42px;
-  height: 14px;
-  font-family: Pretendard;
+  border-radius: 0.2857rem;
+  width: 3rem;
+  height: 1rem;
 
   &[data-label='프로젝트'] {
     background: #f9eee3;
@@ -35,7 +34,8 @@
     background: #dbe6f7;
     color: #4981d5;
   }
+
   @media (max-width: 600px) {
-    font-size: 10px;
+    font-size: 0.7143rem;
   }
 }

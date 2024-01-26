@@ -6,15 +6,14 @@ const localCx = cx.bind(styles);
 
 interface ChipProps {
   label: string;
-  onClick: () => void;
 }
 
-const ChipSubject: React.FC<ChipProps> = ({ label, onClick }) => {
+function ChipSubject({ label }: ChipProps) {
   return (
-    <div className={localCx('chip')} onClick={onClick} data-label={label}>
+    <div className={localCx('chip')} data-label={label}>
       {label}
     </div>
   );
-};
+}
 
 export default ChipSubject;
