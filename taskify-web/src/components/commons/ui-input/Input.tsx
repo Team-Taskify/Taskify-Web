@@ -14,6 +14,7 @@ export type InputProps = {
   type?: HTMLInputTypeAttribute;
   onChange: ChangeEventHandler<HTMLInputElement>;
   hasError?: boolean;
+  isModal?: boolean;
   errorMessage?: string;
   onBlur?: FocusEventHandler<HTMLInputElement>;
   name?: string;
@@ -31,6 +32,7 @@ export function Input({
   onChange,
   placeholder,
   hasError = false,
+  isModal = false,
   errorMessage,
   onBlur,
   name,
@@ -44,7 +46,7 @@ export function Input({
         onChange={onChange}
         onBlur={onBlur}
         placeholder={placeholder}
-        className={cx('input', { error: hasError })}
+        className={cx('input', { error: hasError }, { modal: isModal })}
       />
       {hasError && (
         <span className={cx('messageContainer')}>{errorMessage}</span>
