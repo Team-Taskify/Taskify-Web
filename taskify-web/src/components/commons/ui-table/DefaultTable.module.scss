@@ -1,0 +1,57 @@
+@import '../../../styles/variables';
+@import '../../../styles/mixin';
+
+.default-table {
+  padding: 3.2rem 2.4rem;
+
+  width: 100%;
+  height: max-content;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  background-color: $surface_container;
+  border-radius: 0.8rem;
+}
+
+.default-table__title {
+  margin: 0;
+
+  font-size: $font_size_xxlarge;
+  font-weight: bold;
+}
+
+.default-table__table {
+  width: 100%;
+  table-layout: fixed;
+}
+.default-table__thead {
+  width: 100%;
+}
+
+.default-table__thead_column {
+  width: 100%;
+  display: flexbox;
+
+  & th {
+    color: $hint_color;
+
+    font-size: $font_size_default;
+    font-weight: $font_weight_normal;
+
+    text-align: start;
+  }
+}
+
+.default-table__tbody_row {
+  display: flexbox;
+
+  & td {
+    text-align: start;
+  }
+}
+
+.default-table__tbody_row:not(:last-child) {
+  border-bottom: $surface_dim 0.1rem solid;
+}
