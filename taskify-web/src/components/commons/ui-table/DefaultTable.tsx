@@ -2,20 +2,13 @@ import { ReactNode } from 'react';
 import classNames from 'classnames/bind';
 import CustomRowWithData, { DefaultRowProps } from './CustomRowWithData';
 import styles from './DefaultTable.module.scss';
+import { PaginationConfig, TableConfig } from './types';
 
 const cx = classNames.bind(styles);
 
-// 각 컬럼의 메타 데이터 타입
-export type TableColumn<Row> = {
-  key: keyof Row;
-  title: string;
-  visible: boolean;
-};
-
-export type TableConfig<Row> = TableColumn<Row>[];
-
 type DefaultTableProps<P extends DefaultRowProps> = {
   tableTitle: string;
+  paginationConfig?: PaginationConfig;
   RowComponent: React.ComponentType<P>;
   rowData: P[];
   columnNames: TableConfig<P>;
@@ -24,6 +17,10 @@ type DefaultTableProps<P extends DefaultRowProps> = {
 
 export default function DefaultTable<P extends DefaultRowProps>({
   tableTitle,
+  paginationConfig = {
+    type: 'none',
+    pageSize: 5,
+  },
   columnNames,
   RowComponent,
   rowData = [],

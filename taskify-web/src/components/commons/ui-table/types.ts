@@ -6,3 +6,8 @@ export type TableColumn<Row> = {
 };
 
 export type TableConfig<Row> = TableColumn<Row>[];
+
+export type PaginationConfig = {
+  type: 'pagination' | 'infiniteScroll' | 'none';
+  pageSize?: number;
+};
