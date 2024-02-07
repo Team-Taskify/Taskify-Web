@@ -1,0 +1,25 @@
+// ProgressChip.module.scss
+@import '../../../styles/mixin';
+@import '../../../styles/variables';
+
+.chip {
+  display: flex;
+  align-items: center;
+  padding: 0.4rem 0.8rem;
+  gap: 0.6rem;
+  border-radius: 1.1rem;
+  background: $violet_f1effd;
+
+  .text {
+    color: $primary;
+    text-align: center;
+    font-weight: 400;
+
+    @include mobile {
+      font-size: $font_size_base;
+    }
+    @include tablet {
+      font-size: $font_size_xsmall;
+    }
+  }
+}

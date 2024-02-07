@@ -37,7 +37,7 @@ export default function UserBadge({
     <div>
       {!profileImageUrl &&
         (IsTwoWord ? (
-          <div className={cx('Badge', color)}>
+          <div className={cx('Badge', color, location)}>
             <span className={cx('Badge-text', 'twoWord-text')}>{twoWord}</span>
           </div>
         ) : (

@@ -8,6 +8,17 @@ import ChipSubject from '../ui-chip-subject/chipSubject';
 
 const cx = classNames.bind(styles);
 
+/**
+ * `Card` 컴포넌트의 프로퍼티 타입을 정의합니다.
+ *
+ * @property {string} [imageUrl] - 카드에 표시될 이미지의 URL입니다. 이미지가 없는 경우 생략할 수 있습니다.
+ * @property {string} title - 카드 제목을 나타냅니다.
+ * @property {string[]} [tags] - 카드에 표시될 태그들의 배열입니다. 선택적으로 사용할 수 있습니다.
+ * @property {string} [expiredDate] - 카드의 만료 날짜입니다. 선택적으로 사용할 수 있습니다.
+ * @property {string} [user] - 카드를 생성한 사용자의 이름입니다. 선택적으로 사용할 수 있습니다.
+ * @property {boolean} [clickable] - 카드가 클릭 가능한지 여부를 나타냅니다. 기본값은 `false`입니다.
+ * @property {Function} [onClick] - 카드 클릭 시 실행될 콜백 함수입니다.
+ */
 type CardProps = {
   imageUrl?: string;
   title: string;
@@ -20,6 +31,20 @@ type CardProps = {
   onClick?: (e: MouseEvent) => void;
 };
 
+
+/**
+ * `Card` 컴포넌트는 사용자 인터페이스에 카드 형태의 요소를 렌더링합니다.
+ * 각 카드는 이미지, 제목, 태그, 만료 날짜 등의 정보를 포함할 수 있습니다.
+ * 
+ * @property {string} [imageUrl] - 카드에 표시될 이미지의 URL입니다. 이미지가 없는 경우 생략할 수 있습니다.
+ * @property {string} title - 카드 제목을 나타냅니다.
+ * @property {string[]} [tags] - 카드에 표시될 태그들의 배열입니다. 선택적으로 사용할 수 있습니다.
+ * @property {string} [expiredDate] - 카드의 만료 날짜입니다. 선택적으로 사용할 수 있습니다.
+ * @property {string} [user] - 카드를 생성한 사용자의 이름입니다. 선택적으로 사용할 수 있습니다.
+ * @property {boolean} [clickable] - 카드가 클릭 가능한지 여부를 나타냅니다. 기본값은 `false`입니다.
+ * @property {Function} [onClick] - 카드 클릭 시 실행될 콜백 함수입니다.
+ * @returns {React.ReactElement} `Card` 컴포넌트의 렌더링 결과를 나타내는 React 엘리먼트입니다.
+ */
 export default function Card({
   imageUrl,
   title,

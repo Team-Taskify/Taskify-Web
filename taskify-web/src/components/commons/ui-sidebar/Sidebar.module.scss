@@ -32,7 +32,7 @@ $animation_duration: 0.2s;
 }
 
 .container {
-  padding: $container_pad_vertical 0;
+  padding: 0 0 $container_pad_vertical 0;
 
   display: flex;
   flex-direction: column;
@@ -65,9 +65,25 @@ $animation_duration: 0.2s;
     overflow: hidden;
   }
 
+  .header {
+    height: 7rem;
+    display: flex;
+    align-items: center;
+    @include mobile {
+      justify-content: center;
+    }
+    @include tablet {
+      justify-content: flex-start;
+    }
+  }
+
   .main {
     display: flex;
     flex-direction: column;
+    &.hide {
+      justify-content: center;
+      align-items: center;
+    }
   }
 
   .footer {
@@ -83,8 +99,8 @@ $animation_duration: 0.2s;
   height: 2rem;
 
   position: absolute;
-  top: 2rem;
-  right: 2rem;
+  top: 2.5rem;
+  right: 2.5rem;
 
   &:hover {
     cursor: pointer;
@@ -108,7 +124,7 @@ $animation_duration: 0.2s;
 
   &.close {
     @include center-element-horizontally;
-    
+
     @include tablet {
       display: block;
     }
@@ -116,5 +132,26 @@ $animation_duration: 0.2s;
     @include desktop {
       display: block;
     }
+  }
+}
+
+.largeLogo {
+  @include mobile {
+    display: none;
+  }
+  @include tablet {
+    display: block;
+  }
+  &.isOpen {
+    display: none;
+  }
+}
+
+.smallLogo {
+  @include mobile {
+    display: block;
+  }
+  @include tablet {
+    display: none;
   }
 }

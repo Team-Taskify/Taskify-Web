@@ -28,6 +28,11 @@
     border-color: $primary;
   }
 
+  &:disabled {
+    color: $hint_color;
+    background: $surface_container;
+  }
+
   &.error {
     border-color: $error;
   }

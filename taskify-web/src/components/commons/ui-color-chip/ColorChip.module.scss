@@ -12,36 +12,19 @@
     width: 2.8rem;
     height: 2.8rem;
 
-    .choice {
+    & .choice {
       width: 2.2rem;
+      height: 2.2rem;
     }
-  }
-
-  @include tablet {
   }
 
   @include desktop {
     width: 3rem;
     height: 3rem;
 
-    .choice {
+    & .choice {
       width: 2.4rem;
+      height: 2.4rem;
     }
   }
-}
-//
-.green {
-  background-color: $green_7ac555;
-}
-.purple {
-  background-color: $purple_760dde;
-}
-.orange {
-  background-color: $orange_ffa500;
-}
-.blue {
-  background-color: $blue_76a6ea;
-}
-.pink {
-  background-color: $pink_e876ea;
 }

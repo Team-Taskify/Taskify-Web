@@ -1,0 +1,41 @@
+@import '../../../styles/mixin';
+@import '../../../styles/variables';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 1.2rem;
+  @include mobile {
+    padding: 1.2rem;
+  }
+  @include tablet {
+    padding: 2rem;
+  }
+}
+
+.icon {
+  @include mobile {
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+  @include tablet {
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+.goBack {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  width: fit-content;
+  @include mobile {
+    margin-bottom: 0.8rem;
+    font-size: 1.4rem;
+  }
+  @include tablet {
+    margin-bottom: 0.4rem;
+    font-size: 1.6rem;
+  }
+}

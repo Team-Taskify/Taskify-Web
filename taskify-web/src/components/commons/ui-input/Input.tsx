@@ -19,6 +19,7 @@ export type InputProps = {
   errorMessage?: string;
   onBlur?: FocusEventHandler<HTMLInputElement>;
   name?: string;
+  disabled?: boolean;
   onKeyDown?: KeyboardEventHandler<HTMLInputElement>;
 };
 
@@ -38,6 +39,7 @@ export function Input({
   errorMessage,
   onBlur,
   name,
+  disabled = false,
   onKeyDown,
 }: InputProps) {
   return (
@@ -51,6 +53,7 @@ export function Input({
         placeholder={placeholder}
         onKeyDown={onKeyDown}
         className={cx('input', { error: hasError }, { modal: isModal })}
+        disabled={disabled}
       />
       {hasError && (
         <span className={cx('messageContainer')}>{errorMessage}</span>

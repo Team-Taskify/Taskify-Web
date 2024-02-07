@@ -6,10 +6,12 @@ import styles from './Sidebar.module.scss';
 
 const cx = classNames.bind(styles);
 
-type MainProp = Pick<HTMLProps<HTMLDivElement>, 'children'>;
+type MainProp = Pick<HTMLProps<HTMLDivElement>, 'children'> & {
+  isOpen: boolean;
+};
 
-function SidebarMain({ children }: MainProp) {
-  return <div className={cx('main')}>{children}</div>;
+function SidebarMain({ children, isOpen }: MainProp) {
+  return <div className={cx('main', { hide: isOpen })}>{children}</div>;
 }
 
 export default SidebarMain;

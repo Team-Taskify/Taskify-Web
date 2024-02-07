@@ -1,6 +1,8 @@
 import classNames from 'classnames/bind';
 import Link from 'next/link';
 import styles from './MainHeader.module.scss';
+import LargeLogo from './large_logo.svg';
+import SmallLogo from './small_logo.svg';
 
 const cx = classNames.bind(styles);
 
@@ -11,18 +13,9 @@ export default function MainHeader({ themeColor = 'white' }: MainHeaderProps) {
   return (
     <nav className={cx('container', themeColor)}>
       <Link href="/">
-        <img
-          className={cx('largeLogo', themeColor)}
-          src="/images/large_logo.svg"
-          alt="큰 로고 이미지"
-        />
-        <img
-          className={cx('smallLogo', themeColor)}
-          src="/images/small_logo.svg"
-          alt="작은 로고 이미지"
-        />
+        <LargeLogo className={cx('largeLogo', themeColor)} />
+        <SmallLogo className={cx('smallLogo', themeColor)} />
       </Link>
-
       <div className={cx('buttonWrap')}>
         <Link className={cx('button', themeColor)} href="/signin">
           로그인

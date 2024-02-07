@@ -8,7 +8,8 @@ import { TEXT } from './constant';
 type AuthModalProps = {
   onClick: MouseEventHandler<HTMLButtonElement>;
   isOpen: boolean;
-  messageType: 'signInError' | 'signUpError' | 'signUpSuccess';
+  messageType: 'signInError' | 'signUpError' | 'signUpSuccess' | 'changeError';
+  errorMessage?: string;
 };
 
 const cx = classNames.bind(styles);
@@ -21,10 +22,13 @@ export function AuthModal({
   messageType = 'signInError',
   isOpen,
   onClick,
+  errorMessage = '',
 }: AuthModalProps) {
   return (
     <Modal isOpen={isOpen}>
-      <div className={cx('main')}>{TEXT[messageType]}</div>
+      <div className={cx('main')}>
+        {messageType !== 'changeError' ? TEXT[messageType] : errorMessage}
+      </div>
       <div className={cx('footer')}>
         <Button size="modalMedium" onClick={onClick}>
           확인

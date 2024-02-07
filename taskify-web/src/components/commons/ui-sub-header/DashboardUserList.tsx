@@ -4,48 +4,41 @@ import UserBadge from '../ui-user-badge/UserBadge';
 import getWindowSize from './utils/getWindowSize';
 import getRandomColor from './utils/getRandomColor';
 import getRemainNumber from './utils/getRemainNumber';
+import { Members } from '@/types/dashboard';
 
 const cx = classNames.bind(styles);
 
-type Members = {
-  id: number;
-  userId: number;
-  email: string;
-  nickname: string;
-  profileImageUrl: string;
-};
-
 type DashboardUserListProps = {
-  memberData: {
-    members: Array<Members>;
-    totalCount: number;
-  };
+  memberData: Members | null;
 };
 
 export default function DashboardUserList({
   memberData,
 }: DashboardUserListProps) {
-  const { members, totalCount } = memberData;
   const { width } = getWindowSize();
-  const remainNumber = getRemainNumber(width, totalCount);
 
   return (
     <div className={cx('container')}>
       <div className={cx('memberList')}>
-        {members.map((member) => (
+        {memberData &&
+          memberData.members.map((member) => (
+            <UserBadge
+              location="header"
+              key={member.id}
+              color={getRandomColor(member.userId)}
+              text={member.email}
+              profileImageUrl=""
+            />
+          ))}
+        {getRemainNumber(width, memberData?.totalCount || 0) > 0 && (
           <UserBadge
-            key={member.id}
-            color={getRandomColor(member.userId)}
-            text={member.email}
+            location="header"
+            color="pink"
+            text={`+${getRemainNumber(width, memberData?.totalCount || 0)}`}
             profileImageUrl=""
+            IsTwoWord
           />
-        ))}
-        <UserBadge
-          color="pink"
-          text={`+${remainNumber}`}
-          profileImageUrl=""
-          IsTwoWord
-        />
+        )}
       </div>
     </div>
   );

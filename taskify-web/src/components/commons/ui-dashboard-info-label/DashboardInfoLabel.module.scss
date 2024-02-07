@@ -17,18 +17,27 @@
 }
 
 .sidebar {
+  display: flex;
+  align-items: center;
   .dashboard-color-chip {
     @include mobile {
+      margin-right: 0;
+    }
+    @include tablet {
       margin-right: 1.2rem;
     }
     @include desktop {
       margin-right: 1.6rem;
+    }
+    &.hide {
+      margin-right: 0;
     }
   }
 
   .dashboard-title {
     color: $gray_787486;
     font-weight: $font_weight_normal;
+    margin: 0;
 
     @include mobile {
       display: none;
@@ -39,6 +48,9 @@
     }
     @include desktop {
       font-size: $font_size_large;
+    }
+    &.hide {
+      display: none;
     }
   }
 
@@ -55,6 +67,9 @@
     @include desktop {
       height: 1.4rem;
       margin-left: 0.6rem;
+    }
+    &.hide {
+      display: none;
     }
   }
 }
@@ -104,6 +119,7 @@
   .dashboard-title {
     display: none;
     font-weight: $font_weight_bold;
+    margin: 0;
 
     @include desktop {
       display: block;

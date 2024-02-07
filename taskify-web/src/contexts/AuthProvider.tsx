@@ -1,6 +1,7 @@
 import {
   ReactNode,
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useMemo,
@@ -9,7 +10,13 @@ import {
 import { useRouter } from 'next/router';
 import axios, { AxiosError } from 'axios';
 import { axiosInstance } from '@/lib/api/axiosInstance';
-import { SignInForm, UserData, SignUpForm } from '@/types/auth';
+import {
+  SignInForm,
+  UserData,
+  SignUpForm,
+  ChangeProfileForm,
+  ChangePasswordForm,
+} from '@/types/auth';
 
 /** @type AuthContext에 필요한 타입 선언 */
 type AuthContextType = {
@@ -17,6 +24,11 @@ type AuthContextType = {
   isPending: boolean;
   login: ({ email, password }: SignInForm) => Promise<void>;
   signup: ({ email, nickname, password }: SignUpForm) => Promise<void>;
+  updateMe: ({ nickname, image }: ChangeProfileForm) => Promise<void>;
+  changePassword: ({
+    password,
+    newPassword,
+  }: ChangePasswordForm) => Promise<void>;
   error: AxiosError | null;
   success: boolean;
 };
@@ -27,6 +39,8 @@ const AuthContext = createContext<AuthContextType>({
   isPending: true,
   login: async () => {},
   signup: async () => {},
+  updateMe: async () => {},
+  changePassword: async () => {},
   error: null,
   success: false,
 });
@@ -37,8 +51,9 @@ type AuthProviderProps = { children: ReactNode };
  * Context.Provider를 쉽게 사용하기 위해 만든 Provider 컴포넌트
  * @props children : html요소가 들어가는데 이미 _app에 적용되어있음.
  * @function login : 로그인 동작 함수
- * @TODO 대시보드 데이터 가져오기
- * @TODO 회원가입 함수
+ * @function signup : 회원가입 요청 함수
+ * @function updateMe : 프로필 및 닉네임 변경 요청 함수
+ * @function changePassword : 비밀번호 변경 요청 함수
  */
 export function AuthProvider({ children }: AuthProviderProps) {
   const [value, setValue] = useState<{
@@ -76,39 +91,102 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   };
 
-  /** useCallBack 쓰라고 경고메세지 뜨는데 나중에 리팩토링 기간 주어지면 최적화 해봐도 좋을 것 같습니다. */
-  const login = async ({ email, password }: SignInForm) => {
-    try {
-      setAxiosError(null);
-      const res = await axiosInstance.post('auth/login', { email, password });
-      sessionStorage.setItem('accessToken', res.data.accessToken);
-      await getMe();
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        setAxiosError(error);
+  /** 유저 프로필 이미지, 닉네임을 수정하는 함수입니다. */
+  const updateMe = useCallback(
+    async ({ nickname, image }: ChangeProfileForm) => {
+      if (image) {
+        try {
+          const res = await axiosInstance.post(
+            'users/me/image',
+            {
+              image,
+            },
+            {
+              headers: { 'Content-Type': 'multipart/form-data' },
+            },
+          );
+          const { data } = res;
+          await axiosInstance.put('users/me', {
+            nickname,
+            profileImageUrl: data.profileImageUrl,
+          });
+          getMe();
+        } catch (error) {
+          if (axios.isAxiosError(error)) {
+            setAxiosError(error);
+          }
+        }
+      } else {
+        try {
+          await axiosInstance.put('users/me', {
+            nickname,
+            profileImageUrl: value.user?.profileImageUrl,
+          });
+          getMe();
+        } catch (error) {
+          if (axios.isAxiosError(error)) {
+            setAxiosError(error);
+          }
+        }
       }
-      return;
-    }
-    router.push('/mydashboard');
-  };
+    },
+    [value.user?.profileImageUrl],
+  );
+
+  /** 비밀번호를 변경하는 함수입니다. */
+  const changePassword = useCallback(
+    async ({ password, newPassword }: ChangePasswordForm) => {
+      try {
+        setAxiosError(null);
+        await axiosInstance.put('auth/password', { password, newPassword });
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          setAxiosError(error);
+        }
+      }
+    },
+    [],
+  );
+
+  /** useCallBack 쓰라고 경고메세지 뜨는데 나중에 리팩토링 기간 주어지면 최적화 해봐도 좋을 것 같습니다. */
+  const login = useCallback(
+    async ({ email, password }: SignInForm) => {
+      try {
+        setAxiosError(null);
+        const res = await axiosInstance.post('auth/login', { email, password });
+        sessionStorage.setItem('accessToken', res.data.accessToken);
+        await getMe();
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          setAxiosError(error);
+        }
+        return;
+      }
+      router.push('/mydashboard');
+    },
+    [router],
+  );
 
   /** 회원가입 시도하고, 성공시 success true로 반환 */
-  const signup = async ({ email, nickname, password }: SignUpForm) => {
-    try {
-      setAxiosError(null);
-      setAxiosSuccess(false);
-      await axiosInstance.post('users', {
-        email,
-        nickname,
-        password,
-      });
-      setAxiosSuccess(true);
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        setAxiosError(error);
+  const signup = useCallback(
+    async ({ email, nickname, password }: SignUpForm) => {
+      try {
+        setAxiosError(null);
+        setAxiosSuccess(false);
+        await axiosInstance.post('users', {
+          email,
+          nickname,
+          password,
+        });
+        setAxiosSuccess(true);
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          setAxiosError(error);
+        }
       }
-    }
-  };
+    },
+    [],
+  );
 
   useEffect(() => {
     getMe();
@@ -120,10 +198,21 @@ export function AuthProvider({ children }: AuthProviderProps) {
       isPending: value.isPending,
       login,
       signup,
+      updateMe,
+      changePassword,
       error: axiosError,
       success: axiosSuccess,
     }),
-    [value.user, value.isPending, login, signup, axiosError, axiosSuccess],
+    [
+      value.user,
+      value.isPending,
+      login,
+      signup,
+      updateMe,
+      changePassword,
+      axiosError,
+      axiosSuccess,
+    ],
   );
   return (
     <AuthContext.Provider value={memoizedValue}>

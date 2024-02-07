@@ -1,5 +1,14 @@
-.container{
-    display: flex;
-    flex-direction: row;
-    gap: 1rem;
+@import '../../../styles/mixin';
+@import '../../../styles/variables';
+
+.container {
+  display: flex;
+  flex-direction: row;
+  & .mobile {
+    @include mobile {
+      gap: 0;
+    }
+  }
+
+  gap: 1rem;
 }

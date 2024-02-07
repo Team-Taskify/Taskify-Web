@@ -6,26 +6,50 @@
   justify-content: center;
   align-items: center;
   gap: 1.2rem;
-}
-
-.ProfileLabelImage {
-  width: 3.8rem;
-  height: 3.8rem;
+  height: 100%;
 }
 
 .ProfileLabelName {
-  width: 4.2rem;
-  height: 1.9rem;
+  &.header {
+    height: 100%;
+    @include mobile {
+      display: none;
+    }
 
-  @include mobile {
-    display: none;
+    @include tablet {
+      display: block;
+    }
+
+    @include desktop {
+      display: block;
+    }
   }
 
-  @include tablet {
-    display: block;
+  &.dropdown {
+    @include mobile {
+      font-size: $font_size_small;
+    }
+
+    @include tablet {
+      font-size: $font_size_medium;
+    }
+
+    @include desktop {
+      font-size: $font_size_medium;
+    }
   }
 
-  @include desktop {
-    display: block;
+  &.card {
+    @include mobile {
+      font-size: $font_size_xsmall;
+    }
+
+    @include tablet {
+      font-size: $font_size_small;
+    }
+
+    @include desktop {
+      font-size: $font_size_small;
+    }
   }
 }

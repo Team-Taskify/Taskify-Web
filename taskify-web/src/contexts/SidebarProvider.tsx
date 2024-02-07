@@ -25,7 +25,7 @@ type SidebarProviderProps = {
  *  isOpen, setIsOpen을 제공함
  */
 export function SidebarProvider({ children }: SidebarProviderProps) {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(true);
 
   const memoizedValue = useMemo(
     () => ({

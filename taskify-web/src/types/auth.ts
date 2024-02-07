@@ -9,6 +9,16 @@ export interface SignUpForm extends SignInForm {
   nickname: string;
 }
 
+export interface ChangeProfileForm {
+  nickname: string;
+  image: File | undefined;
+}
+
+export interface ChangePasswordForm {
+  password: string;
+  newPassword: string;
+}
+
 export interface UserData {
   id: number;
   email: string;

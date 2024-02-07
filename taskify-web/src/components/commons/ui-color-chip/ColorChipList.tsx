@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import ColorChip, {
   ColorChipColor,
@@ -7,37 +8,65 @@ import styles from './ColorChipList.module.scss';
 const cx = classNames.bind(styles); // styles 객체를 바인딩하여 CSS 클래스를 동적으로 생성하는 함수를 만듭니다.
 
 type ColorChipListProps = {
-  colorList: [ColorChipColor, boolean][];
-  onSelect: (color: ColorChipColor) => void;
+  selectedColor: ColorChipColor;
+  onSelect: Dispatch<SetStateAction<ColorChipColor>>;
+  isModal?: boolean;
 };
-/**
- * @typedef {[ColorChipColor, boolean]} ColorItem - 목록에서 색상 항목을 나타냅니다. 첫 번째 요소는 색상이고, 두 번째 요소는 색상이 선택되었는지 여부를 나타냅니다.
- */
 
-/**
- * @typedef ColorChipListProps
- * @property {ColorItem[]} colorList - 표시할 색상 목록입니다.
- * @property {(color: ColorChipColor) => void} onSelect - 선택 이벤트에 대한 핸들러입니다.
+/** 컬러칩 리스트입니다.
+ * @props selectedColor : state로, ColorChipColor의 hex 형식 문자열이여야합니다.
+ * @props onSelect : setState로, selectedColor를 설정하는 set함수를 넣어주세요.
  */
 export default function ColorChipList({
-  colorList,
+  selectedColor,
   onSelect,
+  isModal = false,
 }: ColorChipListProps) {
-  /**
-   * 색상 칩 목록을 표시하는 컴포넌트입니다.
-   * @param {ColorChipListProps} props - ColorChipList 컴포넌트의 속성입니다.
-   * @returns {JSX.Element} ColorChipList 컴포넌트입니다.
-   */
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+  const colorList: ColorChipColor[] = [
+    '#7AC555',
+    '#760DDE',
+    '#FFA500',
+    '#76A5EA',
+    '#E876EA',
+  ];
+
+  /** window사이즈가 모바일 환경이면 isMobile true로 */
+  useEffect(() => {
+    const observeResize = () => {
+      if (window.innerWidth > 767) {
+        setIsMobile(false);
+      } else {
+        setIsMobile(true);
+      }
+    };
+    window.addEventListener('resize', observeResize);
+
+    return () => window.removeEventListener('resize', observeResize);
+  }, []);
+
   return (
-    <div className={cx('container')}>
-      {colorList.map((color) => (
+    <div className={cx('container', { mobile: !isModal })}>
+      {!(isModal === false && isMobile === true) &&
+        colorList.map((color) => (
+          <ColorChip
+            key={color}
+            color={color}
+            colorList={colorList}
+            onClick={onSelect}
+            isMobile={!isModal && isMobile}
+            isChoice={selectedColor === color}
+          />
+        ))}
+      {isModal === false && isMobile === true && (
         <ColorChip
-          color={color[0]}
+          color={selectedColor}
+          colorList={colorList}
           onClick={onSelect}
-          key={color[0]}
-          isChoice={color[1]}
+          isMobile={!isModal && isMobile}
+          isChoice
         />
-      ))}
+      )}
     </div>
   );
 }

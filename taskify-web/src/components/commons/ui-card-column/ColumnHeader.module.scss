@@ -1,0 +1,72 @@
+@import '../../../styles/variables';
+@import '../../../styles/mixin';
+
+.column-header {
+  width: 100%;
+  height: fit-content;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.column-header__name-label {
+  margin-right: 1.2rem;
+
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.column-header__name-label_color-chip {
+  width: 0.8rem;
+  height: 0.8rem;
+
+  background-color: $purple_760dde;
+  border-radius: 9999rem;
+}
+
+.column-header__name-label_name {
+  margin: 0;
+  font-size: $font_size_large;
+  font-weight: $font_weight_bold;
+
+  @include mobile {
+    font-size: $font_size_medium;
+  }
+  @include tablet {
+    font-size: $font_size_large;
+  }
+}
+
+.column-header__setting-icon {
+  @include mobile {
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+
+  @include tablet {
+    width: 2.4rem;
+    height: 2.4rem;
+  }
+
+  &:hover {
+    cursor: pointer;
+    animation: rolling 1s infinite ease-in-out;
+  }
+}
+
+@keyframes rolling {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  25% {
+    transform: rotateZ(-30deg);
+  }
+  50% {
+    transform: rotateZ(0deg);
+  }
+  75% {
+    transform: rotateZ(30deg);
+  }
+}

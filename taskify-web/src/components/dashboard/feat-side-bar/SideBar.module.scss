@@ -1,0 +1,46 @@
+@import '../../../styles/mixin';
+@import '../../../styles/variables';
+
+.container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  @include mobile {
+    margin-bottom: 2.2rem;
+    justify-content: center;
+  }
+  @include tablet {
+    margin-bottom: 1.5rem;
+    justify-content: space-between;
+  }
+  &.center {
+    justify-content: center;
+  }
+}
+
+.text {
+  color: $gray_787486;
+  font-size: $font_size_xsmall;
+  font-weight: 700;
+  @include mobile {
+    display: none;
+  }
+  @include tablet {
+    display: block;
+  }
+  &.hide {
+    display: none;
+  }
+}
+
+.icon {
+  @include mobile {
+    margin-right: 0;
+  }
+  @include tablet {
+    margin-right: 1.4rem;
+  }
+  &.center {
+    margin-right: 0;
+  }
+}

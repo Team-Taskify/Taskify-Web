@@ -1,0 +1,21 @@
+@import '../../../styles/mixin';
+
+.card-column {
+  display: flex;
+  flex-direction: column;
+
+  @include mobile {
+    padding: 1.2rem;
+    width: 100%;
+    gap: 1rem;
+  }
+
+  @include tablet {
+    padding: 2rem;
+    gap: 1.6rem;
+  }
+
+  @include desktop {
+    width: 35.4rem;
+  }
+}
