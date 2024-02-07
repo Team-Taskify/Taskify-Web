@@ -74,6 +74,6 @@
   }
 }
 
-.default-table__tbody_row:not(:last-child) {
-  border-bottom: $surface_dim 0.1rem solid;
+.default-table__tbody > tr:not(:last-child) {
+  border-bottom: $outline 0.1rem solid;
 }
