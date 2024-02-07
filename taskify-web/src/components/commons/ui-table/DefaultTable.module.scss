@@ -74,14 +74,6 @@
   }
 }
 
-.default-table__tbody_row {
-  display: flexbox;
-
-  & td {
-    text-align: start;
-  }
-}
-
 .default-table__tbody_row:not(:last-child) {
   border-bottom: $surface_dim 0.1rem solid;
 }

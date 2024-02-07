@@ -62,12 +62,11 @@ export default function DefaultTable<P extends DefaultRowProps>({
         </thead>
         <tbody className={cx('default-table__tbody')}>
           {rowData?.map((eachData) => (
-            <tr key={eachData.id} className={cx('default-table__tbody_row')}>
-              <CustomRowWithData<P>
-                RowComponent={RowComponent}
-                rowData={eachData}
-              />
-            </tr>
+            <CustomRowWithData<P>
+              key={eachData.id}
+              RowComponent={RowComponent}
+              rowData={eachData}
+            />
           ))}
         </tbody>
       </table>
