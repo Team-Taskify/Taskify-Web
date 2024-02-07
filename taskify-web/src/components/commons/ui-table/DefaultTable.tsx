@@ -5,15 +5,20 @@ import styles from './DefaultTable.module.scss';
 
 const cx = classNames.bind(styles);
 
-export type ColumnKey<Row> = {
-  [P in keyof Row]: [string, boolean];
+// 각 컬럼의 메타 데이터 타입
+export type TableColumn<Row> = {
+  key: keyof Row;
+  title: string;
+  visible: boolean;
 };
+
+export type TableConfig<Row> = TableColumn<Row>[];
 
 type DefaultTableProps<P extends DefaultRowProps> = {
   tableTitle: string;
   RowComponent: React.ComponentType<P>;
   rowData: P[];
-  columnNames: ColumnKey<P>;
+  columnNames: TableConfig<P>;
   children?: ReactNode;
 };
 
@@ -31,15 +36,13 @@ export default function DefaultTable<P extends DefaultRowProps>({
       <table className={cx('default-table__table')}>
         <thead className={cx('default-table__thead')}>
           <tr className={cx('default-table__thead_column')}>
-            {Object.entries<[string, boolean]>(columnNames).map(
-              ([key, value]) => {
-                const [columnName, isVisible] = value;
-                if (isVisible) {
-                  return <th key={key}>{columnName}</th>;
-                }
-                return <th key={key} aria-label={columnName} />;
-              },
-            )}
+            {columnNames.map((value) => {
+              const { key, title, visible } = value;
+              if (visible) {
+                return <th key={key as string}>{title}</th>;
+              }
+              return <th key={key as string} aria-label={title} />;
+            })}
           </tr>
         </thead>
         <tbody className={cx('default-table__tbody')}>
