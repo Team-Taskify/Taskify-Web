@@ -1,0 +1,23 @@
+@import '../../../styles/mixin';
+@import '../../../styles/variables';
+
+.container {
+  height: 3.8rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.email {
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+
+  @include mobile {
+    font-size: 1.4rem;
+  }
+
+  @include tablet {
+    font-size: 1.6rem;
+  }
+}

@@ -1,0 +1,53 @@
+@import '../../../styles/mixin';
+@import '../../../styles/variables';
+
+.form {
+  display: flex;
+  flex-direction: column;
+  @include mobile {
+    width: 28.7rem;
+  }
+  @include tablet {
+    width: 48.4rem;
+  }
+}
+
+.title {
+  margin: 0;
+  font-weight: 700;
+  line-height: normal;
+  @include mobile {
+    font-size: $font_size_xlarge;
+    margin-bottom: 2.4rem;
+  }
+  @include tablet {
+    font-size: $font_size_xxlarge;
+    margin-bottom: 3.2rem;
+  }
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  @include mobile {
+    font-size: $font_size_medium;
+  }
+  @include tablet {
+    font-size: $font_size_large;
+  }
+}
+
+.buttonContainer {
+  display: flex;
+  @include mobile {
+    margin-top: 2.4rem;
+    justify-content: center;
+    gap: 1.1rem;
+  }
+  @include tablet {
+    margin-top: 2.8rem;
+    justify-content: flex-end;
+    gap: 1.2rem;
+  }
+}

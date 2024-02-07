@@ -17,7 +17,7 @@ function PaginationButton({
   disabled,
 }: PaginationButtonProps) {
   const paginationClass = cx('pagination-button', {
-    flipped: flipped,
+    flipped,
   });
 
   return (
@@ -29,10 +29,8 @@ function PaginationButton({
         disabled={disabled}
       >
         <div className={cx('button-content')}>
-          페이지네이션
-          <ArrowIcon
-            className={cx('arrow-icon', disabled ? 'disabled' : null)}
-          />
+          <span className={cx('text')}>페이지네이션</span>
+          <ArrowIcon className={cx('arrow-icon', { disabled })} />
         </div>
       </button>
     </div>

@@ -4,24 +4,20 @@ import UserBadge from '../ui-user-badge/UserBadge';
 import getWindowSize from './utils/getWindowSize';
 import getRandomColor from './utils/getRandomColor';
 import getRemainNumber from './utils/getRemainNumber';
-import { Members } from '@/types/dashboard';
+import { useMembers } from '@/contexts/MemberProvider';
 
 const cx = classNames.bind(styles);
 
-type DashboardUserListProps = {
-  memberData: Members | null;
-};
-
-export default function DashboardUserList({
-  memberData,
-}: DashboardUserListProps) {
+export default function DashboardUserList() {
   const { width } = getWindowSize();
+
+  const { membersData } = useMembers();
 
   return (
     <div className={cx('container')}>
       <div className={cx('memberList')}>
-        {memberData &&
-          memberData.members.map((member) => (
+        {membersData &&
+          membersData.data?.members.map((member) => (
             <UserBadge
               location="header"
               key={member.id}
@@ -30,11 +26,11 @@ export default function DashboardUserList({
               profileImageUrl=""
             />
           ))}
-        {getRemainNumber(width, memberData?.totalCount || 0) > 0 && (
+        {getRemainNumber(width, membersData.data?.totalCount || 0) > 0 && (
           <UserBadge
             location="header"
             color="pink"
-            text={`+${getRemainNumber(width, memberData?.totalCount || 0)}`}
+            text={`+${getRemainNumber(width, membersData.data?.totalCount || 0)}`}
             profileImageUrl=""
             IsTwoWord
           />

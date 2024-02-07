@@ -15,7 +15,6 @@ import {
   DashboardsData,
 } from '@/types/dashboard';
 import { axiosInstance } from '@/lib/api/axiosInstance';
-import { useAuth } from './AuthProvider';
 
 type DashBoardProviderType = {
   dashBoards: {
@@ -29,6 +28,7 @@ type DashBoardProviderType = {
   getDashBoards: () => Promise<void>;
   updateDashBoard: ({ color, title }: ChangeDashBoardForm) => Promise<void>;
   createDashBoard: ({ color, title }: ChangeDashBoardForm) => Promise<void>;
+  deleteDashBoard: (dashboardId: string) => Promise<void>;
   error: AxiosError | null;
   boardId: string | string[] | undefined;
 };
@@ -45,6 +45,7 @@ const DashBoardContext = createContext<DashBoardProviderType>({
   getDashBoards: async () => {},
   updateDashBoard: async () => {},
   createDashBoard: async () => {},
+  deleteDashBoard: async () => {},
   error: null,
   boardId: undefined,
 });
@@ -54,7 +55,6 @@ type DashBoardProviderProps = {
 };
 
 export function DashBoardProvider({ children }: DashBoardProviderProps) {
-  const { user } = useAuth();
   const [dashBoards, setDashBoards] = useState<{
     data: DashboardsData | null;
     error: AxiosError | null;
@@ -131,8 +131,19 @@ export function DashBoardProvider({ children }: DashBoardProviderProps) {
     [getDashBoards],
   );
 
+  const deleteDashBoard = useCallback(async (dashboardId: string) => {
+    try {
+      await axiosInstance.delete(`dashboards/${dashboardId}`);
+      router.push('/mydashboard');
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        setAxiosError(error);
+      }
+    }
+  }, []);
+
   useEffect(() => {
-    if (user) {
+    if (router.isReady) {
       if (router.asPath.includes('my') || router.asPath.includes('dashboard')) {
         getDashBoards();
       }
@@ -140,7 +151,7 @@ export function DashBoardProvider({ children }: DashBoardProviderProps) {
         getDashBoard();
       }
     }
-  }, [router, boardId, user, getDashBoard, getDashBoards]);
+  }, [router.isReady]);
 
   const memoizedValue = useMemo(
     () => ({
@@ -150,6 +161,7 @@ export function DashBoardProvider({ children }: DashBoardProviderProps) {
       getDashBoard,
       updateDashBoard,
       createDashBoard,
+      deleteDashBoard,
       error: axiosError,
       boardId,
     }),
@@ -160,6 +172,7 @@ export function DashBoardProvider({ children }: DashBoardProviderProps) {
       getDashBoard,
       updateDashBoard,
       createDashBoard,
+      deleteDashBoard,
       axiosError,
       boardId,
     ],

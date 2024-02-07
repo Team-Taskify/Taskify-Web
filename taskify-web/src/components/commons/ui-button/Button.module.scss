@@ -41,6 +41,9 @@
 
 /* 기본 수락 거절 버튼 사이즈 */
 .medium {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 0.4rem;
   @include mobile {
     width: 10.9rem;

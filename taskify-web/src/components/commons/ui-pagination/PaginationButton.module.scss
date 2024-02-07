@@ -1,5 +1,5 @@
-@import '../../styles/_variables';
-@import '../../styles/_mixin';
+@import '../../../styles/variables';
+@import '../../../styles/mixin';
 
 .pagination-container {
   display: inline-flex;
@@ -11,7 +11,6 @@
     border: 0.1rem solid #{$outline};
     background: #{$surface_container} center no-repeat;
     cursor: pointer;
-    text-indent: -999rem;
 
     &.flipped {
       transform: scaleX(-1);
@@ -40,4 +39,8 @@
   &.disabled {
     opacity: 0.5;
   }
+}
+
+.text {
+  display: none;
 }

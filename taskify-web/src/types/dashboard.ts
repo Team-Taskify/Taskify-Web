@@ -36,3 +36,30 @@ export interface Members {
   members: Member[];
   totalCount: number;
 }
+
+export interface Invitation {
+  id: number;
+  inviter: {
+    nickname: string;
+    email: string;
+    id: number;
+  };
+  teamId: '2-11';
+  dashboard: {
+    title: string;
+    id: number;
+  };
+  invitee: {
+    nickname: string;
+    email: string;
+    id: number;
+  };
+  inviteAccepted: boolean;
+  createdAt: 'string';
+  updatedAt: 'string';
+}
+
+export interface Invites {
+  totalCount: number;
+  invitations: Invitation[];
+}

@@ -1,0 +1,99 @@
+@import '../../../styles/mixin';
+@import '../../../styles/variables';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 62rem;
+  @include mobile {
+    padding: 2.8rem 2rem 2rem 2rem;
+  }
+  @include tablet {
+    padding: 3.2rem 2.8rem 2.8rem 2.8rem;
+  }
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @include mobile {
+    margin-bottom: 1.8rem;
+  }
+  @include tablet {
+    margin-bottom: 2.7rem;
+  }
+}
+
+.title {
+  margin: 0;
+  @include mobile {
+    font-size: $font_size_xlarge;
+    font-weight: 700;
+  }
+  @include tablet {
+    font-size: $font_size_xxlarge;
+  }
+}
+
+.subtitle {
+  margin: 0;
+  font-weight: 400;
+  line-height: normal;
+  color: $surface_dim;
+  @include mobile {
+    font-size: $font_size_small;
+    margin-bottom: 2rem;
+  }
+  @include tablet {
+    font-size: $font_size_medium;
+    margin-bottom: 2.4rem;
+  }
+}
+
+.memberList {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.partition {
+  border-top: 1px solid $gray_eeeeee;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 0;
+  @include mobile {
+    margin: 1.2rem 0;
+  }
+  @include tablet {
+    margin: 1.4rem 0;
+  }
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @include mobile {
+    gap: 1.2rem;
+  }
+  @include tablet {
+    gap: 1.6rem;
+  }
+}
+
+.leftPage {
+  margin: 0;
+  font-weight: 400;
+  line-height: normal;
+  @include mobile {
+    font-size: $font_size_xsmall;
+  }
+  @include tablet {
+    font-size: $font_size_small;
+  }
+}

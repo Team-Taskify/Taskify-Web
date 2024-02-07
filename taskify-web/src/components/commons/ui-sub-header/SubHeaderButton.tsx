@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 import classNames from 'classnames/bind';
 import SettingIcon from './Setting.svg';
 import InviteIcon from './Invite.svg';
 import styles from './SubHeaderButton.module.scss';
+import InviteModal from '@/components/dashboard/feat-invite-modal/InviteModal';
 
 const cx = classNames.bind(styles);
 
@@ -14,8 +16,10 @@ export default function SubHeaderButton({
   isOwner = false,
 }: SubHeaderButtonProps) {
   const router = useRouter();
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
     <>
+      <InviteModal isOpen={isOpen} setIsOpen={setIsOpen} />
       {isOwner && (
         <button
           className={cx('button', 'setting')}
@@ -34,7 +38,9 @@ export default function SubHeaderButton({
         <button
           className={cx('button', 'invite')}
           type="button"
-          onClick={() => {}}
+          onClick={() => {
+            setIsOpen(true);
+          }}
         >
           <InviteIcon className={cx('icon')} />
           <span>초대하기</span>
