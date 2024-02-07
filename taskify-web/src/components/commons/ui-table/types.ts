@@ -12,6 +12,6 @@ export type TableConfig<Row> = TableColumn<Row>[];
 export type PaginationConfig = {
   type: 'pagination' | 'infiniteScroll' | 'none';
   pageSize?: number;
-  leftClick?: MouseEventHandler<HTMLButtonElement>;
-  rightClick?: MouseEventHandler<HTMLButtonElement>;
+  getBeforePage?: MouseEventHandler<HTMLButtonElement>;
+  getAfterPage?: MouseEventHandler<HTMLButtonElement>;
 };

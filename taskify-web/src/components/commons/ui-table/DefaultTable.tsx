@@ -21,8 +21,8 @@ export default function DefaultTable<P extends DefaultRowProps>({
   paginationConfig = {
     type: 'none',
     pageSize: 5,
-    leftClick: () => {},
-    rightClick: () => {},
+    getBeforePage: () => {},
+    getAfterPage: () => {},
   },
   columnNames,
   RowComponent,
@@ -41,8 +41,8 @@ export default function DefaultTable<P extends DefaultRowProps>({
             * 페이지 중 *
           </span>
           <PaginationButtonContainer
-            leftClick={paginationConfig.leftClick!}
-            rightClick={paginationConfig.rightClick!}
+            leftClick={paginationConfig.getBeforePage!}
+            rightClick={paginationConfig.getAfterPage!}
           />
         </div>
       ) : null}
