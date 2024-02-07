@@ -7,12 +7,42 @@
   width: 100%;
   height: max-content;
 
+  position: relative;
+
   display: flex;
   flex-direction: column;
   gap: 2rem;
 
   background-color: $surface_container;
   border-radius: 0.8rem;
+}
+
+.default-table__pagination-button-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  position: absolute;
+  top: 2.6rem;
+  right: 2.8rem;
+
+  @include mobile {
+    gap: 1.2rem;
+  }
+
+  @include tablet {
+    gap: 1.6rem;
+  }
+}
+
+.default-table__pagination-button-container_page-info {
+  @include mobile {
+    font-size: $font_size_xsmall;
+  }
+
+  @include tablet {
+    font-size: $font_size_small;
+  }
 }
 
 .default-table__title {
