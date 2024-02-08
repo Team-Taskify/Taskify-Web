@@ -9,8 +9,10 @@ export type TableColumn<Row> = {
 
 export type TableConfig<Row> = TableColumn<Row>[];
 
+export type PaginationType = 'pagination' | 'infiniteScroll' | 'none';
+
 export type PaginationConfig = {
-  type: 'pagination' | 'infiniteScroll' | 'none';
+  type: PaginationType;
   pageSize?: number;
   currentPage?: number;
   totalPages?: number;
