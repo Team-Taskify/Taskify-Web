@@ -4,6 +4,7 @@ import CustomRowWithData, { DefaultRowProps } from './CustomRowWithData';
 import styles from './DefaultTable.module.scss';
 import { PaginationConfig, TableConfig } from './types';
 import PaginationButtonContainer from '../ui-pagination/PaginationButtonContainer';
+import { usePaginationConfig } from '@/contexts/PaginationProvider';
 
 const cx = classNames.bind(styles);
 
@@ -18,7 +19,7 @@ export type DefaultTableProps<P extends DefaultRowProps> = {
 
 export default function DefaultTable<P extends DefaultRowProps>({
   tableTitle,
-  paginationConfig = {
+  paginationConfig: defaultPaginationConfig = {
     type: 'none',
   },
   columnNames,
@@ -26,6 +27,8 @@ export default function DefaultTable<P extends DefaultRowProps>({
   rowData = [],
   children,
 }: DefaultTableProps<P>) {
+  const paginationConfig = usePaginationConfig(defaultPaginationConfig);
+
   return (
     <div className={cx('default-table')}>
       {paginationConfig.type === 'pagination' ? (
