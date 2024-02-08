@@ -20,9 +20,6 @@ export default function DefaultTable<P extends DefaultRowProps>({
   tableTitle,
   paginationConfig = {
     type: 'none',
-    pageSize: 5,
-    getBeforePage: () => {},
-    getAfterPage: () => {},
   },
   columnNames,
   RowComponent,
@@ -38,7 +35,8 @@ export default function DefaultTable<P extends DefaultRowProps>({
               'default-table__pagination-button-container_page-info',
             )}
           >
-            * 페이지 중 *
+            {paginationConfig.totalPages} 페이지 중{' '}
+            {paginationConfig.currentPage}
           </span>
           <PaginationButtonContainer
             leftClick={paginationConfig.getBeforePage!}
