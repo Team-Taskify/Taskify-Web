@@ -2,6 +2,7 @@ import {
   ReactNode,
   createContext,
   useCallback,
+  useContext,
   useMemo,
   useState,
 } from 'react';
@@ -121,4 +122,14 @@ export default function PaginationConfigProvider({
       {children}
     </PaginationConfigContext.Provider>
   );
+}
+
+export function usePaginationConfig() {
+  const paginationConfigContext = useContext(PaginationConfigContext);
+
+  if (!paginationConfigContext) {
+    throw Error('반드시 PaginationConfigProvider 내에서 사용해주세요');
+  }
+
+  return paginationConfigContext;
 }
