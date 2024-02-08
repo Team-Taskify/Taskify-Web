@@ -1,5 +1,7 @@
 import {
+  Dispatch,
   ReactNode,
+  SetStateAction,
   createContext,
   useCallback,
   useContext,
@@ -10,6 +12,7 @@ import { PaginationConfig } from '@/components/commons/ui-table/types';
 
 // PaginationConfig와 함께 추가 함수들을 포함하는 컨텍스트 값의 타입 정의
 type PaginationConfigContextType = PaginationConfig & {
+  setPaginationConfig: Dispatch<SetStateAction<PaginationConfig>>;
   setPagingTypePagination: (
     eachPageSize: number,
     totalRowCount: number,
@@ -110,6 +113,7 @@ export default function PaginationConfigProvider({
   const contextValue = useMemo(
     () => ({
       ...paginationConfig,
+      setPaginationConfig,
       setPagingTypePagination,
       setPagingTypeInfiniteScroll,
       setPagingTypeNone,
@@ -124,11 +128,15 @@ export default function PaginationConfigProvider({
   );
 }
 
-export function usePaginationConfig() {
+export function usePaginationConfig(defaultValue: PaginationConfig) {
   const paginationConfigContext = useContext(PaginationConfigContext);
 
   if (!paginationConfigContext) {
     throw Error('반드시 PaginationConfigProvider 내에서 사용해주세요');
+  }
+
+  if (defaultValue) {
+    paginationConfigContext.setPaginationConfig(defaultValue);
   }
 
   return paginationConfigContext;
