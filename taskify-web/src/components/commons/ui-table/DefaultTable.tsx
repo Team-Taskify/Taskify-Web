@@ -7,7 +7,7 @@ import PaginationButtonContainer from '../ui-pagination/PaginationButtonContaine
 
 const cx = classNames.bind(styles);
 
-type DefaultTableProps<P extends DefaultRowProps> = {
+export type DefaultTableProps<P extends DefaultRowProps> = {
   tableTitle: string;
   paginationConfig?: PaginationConfig;
   RowComponent: React.ComponentType<P>;
