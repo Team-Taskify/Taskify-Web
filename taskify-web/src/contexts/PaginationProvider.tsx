@@ -79,7 +79,9 @@ export default function PaginationConfigProvider({
     setPaginationConfig({ type: 'none' });
   };
 
-  <PaginationConfigContext.Provider value={paginationConfig}>
-    {children}
-  </PaginationConfigContext.Provider>;
+  return (
+    <PaginationConfigContext.Provider value={paginationConfig}>
+      {children}
+    </PaginationConfigContext.Provider>
+  );
 }
