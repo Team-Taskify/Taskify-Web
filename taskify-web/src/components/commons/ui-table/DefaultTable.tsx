@@ -42,8 +42,12 @@ export default function DefaultTable<P extends DefaultRowProps>({
             {paginationConfig.currentPage}
           </span>
           <PaginationButtonContainer
-            leftClick={paginationConfig.getBeforePage!}
-            rightClick={paginationConfig.getAfterPage!}
+            leftClick={() => {
+              /** TODO: 왼쪽 클릭 데이터 */
+            }}
+            rightClick={() => {
+              /** TODO: 오른쪽 클릭 데이터 */
+            }}
           />
         </div>
       ) : null}
