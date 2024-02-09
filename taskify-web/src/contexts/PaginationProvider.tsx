@@ -16,13 +16,10 @@ type PaginationConfigContextType = PaginationConfig & {
   setPagingTypePagination: (
     eachPageSize: number,
     totalRowCount: number,
-    getBeforePage: () => void,
-    getAfterPage: () => void,
     currentRowCount?: number,
   ) => void;
   setPagingTypeInfiniteScroll: (
     eachScrollSize: number,
-    getAfterPage: () => void,
     cursorId: number,
   ) => void;
   setPagingTypeNone: () => void;
@@ -45,13 +42,7 @@ export default function PaginationConfigProvider({
   });
 
   const setPagingTypePagination = useCallback(
-    (
-      eachPageSize: number,
-      totalRowCount: number,
-      getBeforePage: () => void,
-      getAfterPage: () => void,
-      currentRowCount?: number,
-    ) => {
+    (eachPageSize: number, totalRowCount: number, currentRowCount?: number) => {
       if (eachPageSize < 1) {
         throw Error('한 페이지의 크기는 1 이상이어야 합니다');
       }
@@ -70,8 +61,6 @@ export default function PaginationConfigProvider({
           pageSize: eachPageSize,
           currentPage,
           totalPages,
-          getBeforePage,
-          getAfterPage,
         });
       }
 
@@ -81,8 +70,6 @@ export default function PaginationConfigProvider({
           pageSize: eachPageSize,
           currentPage: 1,
           totalPages,
-          getBeforePage,
-          getAfterPage,
         });
       }
     },
@@ -91,7 +78,6 @@ export default function PaginationConfigProvider({
 
   const setPagingTypeInfiniteScroll = (
     eachScrollSize: number,
-    getAfterPage: () => void,
     cursorId: number,
   ) => {
     if (eachScrollSize < 1) {
@@ -101,7 +87,6 @@ export default function PaginationConfigProvider({
     setPaginationConfig({
       type: 'infiniteScroll',
       pageSize: eachScrollSize,
-      getAfterPage,
       cursorId,
     });
   };
