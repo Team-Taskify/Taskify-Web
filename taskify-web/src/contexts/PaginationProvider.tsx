@@ -5,6 +5,7 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useState,
 } from 'react';
@@ -113,16 +114,19 @@ export default function PaginationConfigProvider({
   );
 }
 
-export function usePaginationConfig(defaultValue: PaginationConfig) {
+export function usePaginationConfig(defaultValue?: PaginationConfig) {
   const paginationConfigContext = useContext(PaginationConfigContext);
-
   if (!paginationConfigContext) {
     throw Error('반드시 PaginationConfigProvider 내에서 사용해주세요');
   }
 
-  if (defaultValue) {
-    paginationConfigContext.setPaginationConfig(defaultValue);
-  }
+  const { setPaginationConfig, ...rest } = paginationConfigContext;
 
-  return paginationConfigContext;
+  useEffect(() => {
+    if (defaultValue) {
+      setPaginationConfig(defaultValue);
+    }
+  }, [defaultValue, setPaginationConfig]);
+
+  return rest;
 }
